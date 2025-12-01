@@ -1,6 +1,6 @@
 {
   "name": "rojeru-toast",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Librería moderna de mensajes toast para aplicaciones web, compatible con todos los frameworks y HTML puro",
   "main": "dist/rojeru-toast.js",
   "module": "src/index.js",
@@ -33,12 +33,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tu-usuario/rojeru-toast.git"
+    "url": "https://github.com/rojerusan/rojeru-toast.git"
   },
   "bugs": {
-    "url": "https://github.com/tu-usuario/rojeru-toast/issues"
+    "url": "https://github.com/rojerusan/rojeru-toast/issues"
   },
-  "homepage": "https://github.com/tu-usuario/rojeru-toast#readme",
+  "homepage": "https://github.com/rojerusan/rojeru-toast#readme",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.0",
     "clean-css-cli": "^5.6.2",
