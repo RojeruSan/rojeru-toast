@@ -1,0 +1,438 @@
+
+/* Tu CSS completo aquí - copia todo el CSS que ya tienes */
+/**
+ * Autor: Rogelio Urieta Camacho
+ * Alias: RojeruSan
+ */
+/**
+ * rojeru-toast.css - Estilos modernos para la librería de mensajes toast
+ * @version 2.6.0
+ */
+
+.rojeru-toast-container {
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 420px;
+    padding: 20px;
+}
+
+.rojeru-toast-container.top-right {
+    top: 0;
+    right: 0;
+    align-items: flex-end;
+}
+
+.rojeru-toast-container.top-left {
+    top: 0;
+    left: 0;
+    align-items: flex-start;
+}
+
+.rojeru-toast-container.top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+}
+
+.rojeru-toast-container.bottom-right {
+    bottom: 0;
+    right: 0;
+    align-items: flex-end;
+}
+
+.rojeru-toast-container.bottom-left {
+    bottom: 0;
+    left: 0;
+    align-items: flex-start;
+}
+
+.rojeru-toast-container.bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+}
+
+.rojeru-toast {
+    pointer-events: all;
+    padding: 16px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 380px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.rojeru-toast.rojeru-toast-clickable {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rojeru-toast.rojeru-toast-clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.rojeru-toast.rojeru-toast-clickable:active {
+    transform: translateY(0);
+}
+
+.rojeru-toast::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: 0.3;
+}
+
+.rojeru-toast.hiding {
+    transform: scale(0.9) translateX(100px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Light Theme */
+.rojeru-toast.light {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.rojeru-toast.light.info { color: #0066CC; }
+.rojeru-toast.light.success { color: #00A86B; }
+.rojeru-toast.light.warning { color: #FF6B00; }
+.rojeru-toast.light.error { color: #FF3B30; }
+.rojeru-toast.light.loading { color: #666666; }
+
+/* Dark Theme */
+.rojeru-toast.dark {
+    background: rgba(28, 28, 30, 0.95);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.rojeru-toast.dark.info { color: #5AC8FA; }
+.rojeru-toast.dark.success { color: #30D158; }
+.rojeru-toast.dark.warning { color: #FF9F0A; }
+.rojeru-toast.dark.error { color: #FF453A; }
+.rojeru-toast.dark.loading { color: #8E8E93; }
+
+/* Colored Theme - Mejorado para mejor contraste */
+.rojeru-toast.colored {
+    color: white;
+    border: none;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 4px 16px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.rojeru-toast.colored.info {
+    background: linear-gradient(135deg, #0055AA, #0077CC);
+}
+
+.rojeru-toast.colored.success {
+    background: linear-gradient(135deg, #008755, #00AA66);
+}
+
+.rojeru-toast.colored.warning {
+    background: linear-gradient(135deg, #CC5500, #EE7700);
+}
+
+.rojeru-toast.colored.error {
+    background: linear-gradient(135deg, #CC2200, #EE4422);
+}
+
+.rojeru-toast.light.loading.info { color: #0066CC; }
+.rojeru-toast.light.loading.success { color: #00A86B; }
+.rojeru-toast.light.loading.warning { color: #FF6B00; }
+.rojeru-toast.light.loading.error { color: #FF3B30; }
+
+/* Dark Theme - Loading con tipos específicos */
+.rojeru-toast.dark.loading.info { color: #5AC8FA; }
+.rojeru-toast.dark.loading.success { color: #30D158; }
+.rojeru-toast.dark.loading.warning { color: #FF9F0A; }
+.rojeru-toast.dark.loading.error { color: #FF453A; }
+
+/* Colored Theme - Loading con tipos específicos */
+.rojeru-toast.colored.loading.info {
+    background: linear-gradient(135deg, #0055AA, #0077CC);
+}
+
+.rojeru-toast.colored.loading.success {
+    background: linear-gradient(135deg, #008755, #00AA66);
+}
+
+.rojeru-toast.colored.loading.warning {
+    background: linear-gradient(135deg, #CC5500, #EE7700);
+}
+
+.rojeru-toast.colored.loading.error {
+    background: linear-gradient(135deg, #CC2200, #EE4422);
+}
+
+.rojeru-toast.colored::before {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+}
+
+.rojeru-toast.colored .rojeru-toast-close {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.rojeru-toast.colored .rojeru-toast-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.rojeru-toast.colored .rojeru-toast-progress {
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Icono de loading animado */
+.rojeru-toast-loading-icon {
+    animation: rojeru-toast-spin 1s linear infinite;
+}
+
+@keyframes rojeru-toast-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.rojeru-toast-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.rojeru-toast-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.rojeru-toast-content {
+    flex: 1;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rojeru-toast-title {
+    font-weight: 600;
+    font-size: 15px;
+    display: block;
+}
+
+.rojeru-toast-message {
+    opacity: 0.95;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Mejor contraste para tema colored */
+.rojeru-toast.colored .rojeru-toast-title {
+    opacity: 0.95;
+    font-weight: 700;
+}
+
+.rojeru-toast.colored .rojeru-toast-message {
+    opacity: 0.9;
+}
+
+/* Estilos para toast simples (sin título) */
+.rojeru-toast:not(:has(.rojeru-toast-title)) .rojeru-toast-content {
+    gap: 0;
+}
+
+.rojeru-toast:not(:has(.rojeru-toast-title)) .rojeru-toast-message {
+    margin-top: 1px;
+}
+
+.rojeru-toast-close {
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-top: -2px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.rojeru-toast-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(1.1);
+}
+
+.rojeru-toast.dark .rojeru-toast-close {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.rojeru-toast.dark .rojeru-toast-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.rojeru-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: currentColor;
+    opacity: 0.3;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+/* Animations */
+.rojeru-toast.slide {
+    animation: rojeru-toast-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rojeru-toast.fade {
+    animation: rojeru-toast-fade-in 0.4s ease-out;
+}
+
+.rojeru-toast.scale {
+    animation: rojeru-toast-scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes rojeru-toast-slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rojeru-toast-slide-in-left {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rojeru-toast-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rojeru-toast-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Nuevas animaciones para actualización */
+@keyframes rojeru-toast-update {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes rojeru-toast-type-change {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.95);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .rojeru-toast-container {
+        max-width: 100vw;
+        padding: 10px;
+    }
+
+    .rojeru-toast {
+        max-width: calc(100vw - 20px);
+        font-size: 15px;
+        padding: 14px 16px;
+    }
+
+    .rojeru-toast-container.top-center,
+    .rojeru-toast-container.bottom-center {
+        width: 100%;
+    }
+
+    .rojeru-toast-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+

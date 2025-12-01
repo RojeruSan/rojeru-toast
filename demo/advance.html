@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rojeru-toast - Ejemplos Avanzados</title>
+    <link rel="stylesheet" href="../dist/rojeru-toast.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .example-card h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-card p {
+            color: #718096;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .example-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .example-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2d3748;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1><i class="fas fa-rocket"></i> Ejemplos Avanzados</h1>
+
+    <p style="text-align: center; color: #718096; margin-bottom: 30px;">
+        Descubre todas las capacidades de rojeru-toast con estos ejemplos avanzados
+    </p>
+
+    <div class="examples-grid">
+        <!-- Ejemplo 1: Toast con acciones personalizadas -->
+        <div class="example-card">
+            <h3><i class="fas fa-mouse-pointer"></i> Toast con Acciones</h3>
+            <p>Toast que incluye botones de acción personalizados.</p>
+            <button class="example-btn" onclick="showActionToast()">
+                Mostrar Toast con Acciones
+            </button>
+            <div class="code-block">
+                    <pre>const toast = rojeruToast.info(
+    '¿Deseas guardar los cambios?',
+    { duration: 0 }
+);
+
+// Agregar acciones después de mostrar
+setTimeout(() => {
+    const actions = document.createElement('div');
+    actions.innerHTML = `
+        &lt;button onclick="guardar()"&gt;Guardar&lt;/button&gt;
+        &lt;button onclick="descartar()"&gt;Descartar&lt;/button&gt;
+    `;
+    toast.element.querySelector('.rojeru-toast-content')
+          .appendChild(actions);
+}, 100);</pre>
+            </div>
+        </div>
+
+        <!-- Ejemplo 2: Progreso en tiempo real -->
+        <div class="example-card">
+            <h3><i class="fas fa-chart-line"></i> Progreso en Tiempo Real</h3>
+            <p>Toast que muestra progreso de una operación larga.</p>
+            <button class="example-btn" onclick="showProgressToast()">
+                Mostrar Progreso
+            </button>
+            <div class="code-block">
+                    <pre>const progressToast = rojeruToast.loading(
+    'Procesando: 0%',
+    { duration: 0 }
+);
+
+// Simular progreso
+let progress = 0;
+const interval = setInterval(() => {
+    progress += 10;
+    if (progress <= 100) {
+        progressToast.update(
+            `Procesando: ${progress}%`
+        );
+    }
+
+    if (progress === 100) {
+        clearInterval(interval);
+        progressToast.complete('¡Completado!');
+    }
+}, 300);</pre>
+            </div>
+        </div>
+
+        <!-- Ejemplo 3: Toast en cadena -->
+        <div class="example-card">
+            <h3><i class="fas fa-link"></i> Toasts en Cadena</h3>
+            <p>Mostrar varios toasts en secuencia.</p>
+            <button class="example-btn" onclick="showChainToasts()">
+                Mostrar Secuencia
+            </button>
+            <div class="code-block">
+                    <pre>// Mostrar toasts en secuencia
+rojeruToast.info('Paso 1: Iniciando proceso...');
+
+setTimeout(() => {
+    rojeruToast.success('Paso 2: Validando datos...');
+}, 1000);
+
+setTimeout(() => {
+    rojeruToast.warning('Paso 3: Procesando información...');
+}, 2000);
+
+setTimeout(() => {
+    rojeruToast.success('Paso 4: ¡Proceso completado!');
+}, 3000);</pre>
+            </div>
+        </div>
+
+        <!-- Ejemplo 4: Toast con HTML personalizado -->
+        <div class="example-card">
+            <h3><i class="fas fa-code"></i> HTML Personalizado</h3>
+            <p>Toast que contiene HTML personalizado complejo.</p>
+            <button class="example-btn" onclick="showCustomHTMLToast()">
+                Mostrar HTML Personalizado
+            </button>
+            <div class="code-block">
+                    <pre>rojeruToast.show(
+    'Nueva Notificación',
+    `&lt;div style="margin-top: 10px;"&gt;
+        &lt;strong&gt;Usuario:&lt;/strong&gt; Juan Pérez&lt;br&gt;
+        &lt;strong&gt;Acción:&lt;/strong&gt; Archivo subido&lt;br&gt;
+        &lt;a href="#" style="color: #4299e1;"&gt;
+            Ver detalles
+        &lt;/a&gt;
+     &lt;/div&gt;`,
+    {
+        duration: 5000,
+        theme: 'dark'
+    }
+);</pre>
+            </div>
+        </div>
+
+        <!-- Ejemplo 5: Toast con tiempo extendido -->
+        <div class="example-card">
+            <h3><i class="fas fa-clock"></i> Tiempo Extendido</h3>
+            <p>Toast que cambia su duración dinámicamente.</p>
+            <button class="example-btn" onclick="showExtendedToast()">
+                Mostrar con Tiempo Extendido
+            </button>
+            <div class="code-block">
+                    <pre>const toast = rojeruToast.warning(
+    'Sesión expirando en 5 minutos',
+    { duration: 5000 }
+);
+
+// Extender tiempo si usuario está activo
+document.addEventListener('mousemove', () => {
+    if (toast.element && toast.element.parentNode) {
+        // Reiniciar tiempo
+        toast.element.querySelector('.rojeru-toast-progress')
+              .style.transition = 'transform 5000ms linear';
+        toast.element.querySelector('.rojeru-toast-progress')
+              .style.transform = 'scaleX(1)';
+    }
+});</pre>
+            </div>
+        </div>
+
+        <!-- Ejemplo 6: Toast con sonido -->
+        <div class="example-card">
+            <h3><i class="fas fa-volume-up"></i> Toast con Sonido</h3>
+            <p>Toast que reproduce sonido al mostrarse.</p>
+            <button class="example-btn" onclick="showSoundToast()">
+                Mostrar con Sonido
+            </button>
+            <div class="code-block">
+                    <pre>function playNotificationSound() {
+    const audio = new Audio('notification.mp3');
+    audio.play();
+}
+
+rojeruToast.success('¡Nuevo mensaje!', {
+    onShow: () => {
+        playNotificationSound();
+    }
+});</pre>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Volver a la Demo Principal
+    </a>
+</div>
+
+<script src="../dist/rojeru-toast.js"></script>
+<script>
+    // Ejemplo 1: Toast con acciones personalizadas
+    function showActionToast() {
+        const actionToast = rojeruToast.info(
+            '¿Deseas guardar los cambios no guardados?',
+            { duration: 0, dismissible: true }
+        );
+
+        setTimeout(() => {
+            const actionsDiv = document.createElement('div');
+            actionsDiv.style.marginTop = '12px';
+            actionsDiv.style.display = 'flex';
+            actionsDiv.style.gap = '8px';
+            actionsDiv.innerHTML = `
+                    <button style="padding: 6px 12px; background: #48bb78; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;" onclick="guardarCambios()">Guardar</button>
+                    <button style="padding: 6px 12px; background: #e53e3e; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;" onclick="descartarCambios()">Descartar</button>
+                `;
+
+            actionToast.element.querySelector('.rojeru-toast-content')
+                .appendChild(actionsDiv);
+        }, 100);
+    }
+
+    function guardarCambios() {
+        rojeruToast.success('Cambios guardados exitosamente');
+    }
+
+    function descartarCambios() {
+        rojeruToast.warning('Cambios descartados');
+    }
+
+    // Ejemplo 2: Progreso en tiempo real
+    function showProgressToast() {
+        const progressToast = rojeruToast.loading(
+            'Procesando archivos: 0% completado',
+            { duration: 0, loadingType: 'info' }
+        );
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 5;
+            if (progress <= 100) {
+                progressToast.update(
+                    `Procesando archivos: ${progress}% completado`
+                );
+
+                // Cambiar color según progreso
+                if (progress > 75) {
+                    progressToast.element.classList.add('success');
+                }
+            }
+
+            if (progress === 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    progressToast.complete('¡Archivos procesados exitosamente!');
+                }, 500);
+            }
+        }, 200);
+    }
+
+    // Ejemplo 3: Toast en cadena
+    function showChainToasts() {
+        rojeruToast.info('Paso 1: Iniciando proceso de importación...', {
+            position: 'bottom-right'
+        });
+
+        setTimeout(() => {
+            rojeruToast.success('Paso 2: Datos validados correctamente', {
+                position: 'bottom-right'
+            });
+        }, 1000);
+
+        setTimeout(() => {
+            const processing = rojeruToast.loading('Paso 3: Procesando información...', {
+                position: 'bottom-right',
+                loadingType: 'warning'
+            });
+
+            setTimeout(() => {
+                processing.complete('Paso 4: ¡Importación completada!');
+            }, 2000);
+        }, 2000);
+    }
+
+    // Ejemplo 4: Toast con HTML personalizado
+    function showCustomHTMLToast() {
+        const customHTML = `
+                <div style="margin-top: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                        <div style="width: 32px; height: 32px; background: #4299e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>Usuario:</strong> María García<br>
+                            <span style="font-size: 12px; color: #718096;">Hace 5 minutos</span>
+                        </div>
+                    </div>
+                    <div style="background: #f7fafc; padding: 10px; border-radius: 6px; border-left: 3px solid #4299e1;">
+                        Ha subido un nuevo archivo: <strong>reporte_final.pdf</strong>
+                    </div>
+                    <div style="margin-top: 10px; display: flex; gap: 8px;">
+                        <a href="#" style="color: #4299e1; text-decoration: none; font-size: 13px;">
+                            <i class="fas fa-download"></i> Descargar
+                        </a>
+                        <a href="#" style="color: #48bb78; text-decoration: none; font-size: 13px;">
+                            <i class="fas fa-eye"></i> Previsualizar
+                        </a>
+                    </div>
+                </div>
+            `;
+
+        rojeruToast.show(
+            '<i class="fas fa-bell"></i> Nueva Actividad',
+            customHTML,
+            {
+                duration: 8000,
+                theme: 'light',
+                position: 'top-right'
+            }
+        );
+    }
+
+    // Ejemplo 5: Toast con tiempo extendido
+    function showExtendedToast() {
+        const extendedToast = rojeruToast.warning(
+            'Tu sesión expirará en 5 minutos por inactividad',
+            { duration: 10000, position: 'top-center' }
+        );
+
+        let extended = false;
+
+        // Extender al hacer clic
+        extendedToast.element.addEventListener('click', () => {
+            if (!extended) {
+                extended = true;
+                extendedToast.update(
+                    'Sesión extendida por 10 minutos más',
+                    { type: 'success' }
+                );
+            }
+        });
+    }
+
+    // Ejemplo 6: Toast con sonido
+    function showSoundToast() {
+        // Intentar reproducir sonido (si el navegador lo permite)
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        } catch (e) {
+            console.log('No se pudo reproducir sonido:', e);
+        }
+
+        rojeruToast.success('¡Nueva notificación!', {
+            theme: 'colored',
+            animation: 'scale'
+        });
+    }
+</script>
+</body>
+</html>

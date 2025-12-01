@@ -1,0 +1,12 @@
+node_modules/
+*.log
+.DS_Store
+.vscode/
+.idea/
+coverage/
+dist/test/
+src/test/
+*.spec.js
+*.test.js
+rollup.config.js
+scripts/

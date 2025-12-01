@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rojeru-toast - Demo y Pruebas</title>
+
+    <!-- Estilos de la librería -->
+    <link rel="stylesheet" href="../dist/rojeru-toast.css">
+
+    <!-- Estilos para la demo -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .version {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .description {
+            color: #718096;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #718096;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .demo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .section-title {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-group h4 {
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-info { background: #4299e1; color: white; }
+        .btn-success { background: #48bb78; color: white; }
+        .btn-warning { background: #ed8936; color: white; }
+        .btn-error { background: #f56565; color: white; }
+        .btn-loading { background: #805ad5; color: white; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-secondary { background: #a0aec0; color: white; }
+        .btn-danger { background: #e53e3e; color: white; }
+
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        select, input {
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+        }
+
+        .highlight {
+            color: #63b3ed;
+        }
+
+        .string {
+            color: #68d391;
+        }
+
+        .number {
+            color: #fbb6ce;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eaeaea;
+            color: #718096;
+        }
+
+        .author {
+            font-size: 1.1em;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2d3748;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        .toast-status {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🍞 rojeru-toast <span class="version">v2.6.1</span></h1>
+        <p class="description">
+            Una librería moderna de mensajes toast para aplicaciones web,
+            compatible con todos los frameworks y HTML puro.
+        </p>
+    </header>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Diseño Moderno</h3>
+            <p>3 temas (light, dark, colored) con efectos de blur y gradientes.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Totalmente Responsive</h3>
+            <p>Se adapta perfectamente a cualquier dispositivo móvil o desktop.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Sin Dependencias</h3>
+            <p>Librería vanilla JavaScript, no requiere frameworks externos.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3>Altamente Configurable</h3>
+            <p>Múltiples opciones de personalización y animaciones.</p>
+        </div>
+    </section>
+
+    <!-- Demostración de toasts básicos -->
+    <section class="demo-section">
+        <h2 class="section-title"><i class="fas fa-play-circle"></i> Demostración Básica</h2>
+
+        <div class="controls-grid">
+            <div class="control-group">
+                <h4>Toasts Simples</h4>
+                <div class="button-grid">
+                    <button class="btn-info" onclick="showInfo()">
+                        <i class="fas fa-info-circle"></i> Info
+                    </button>
+                    <button class="btn-success" onclick="showSuccess()">
+                        <i class="fas fa-check-circle"></i> Success
+                    </button>
+                    <button class="btn-warning" onclick="showWarning()">
+                        <i class="fas fa-exclamation-triangle"></i> Warning
+                    </button>
+                    <button class="btn-error" onclick="showError()">
+                        <i class="fas fa-times-circle"></i> Error
+                    </button>
+                    <button class="btn-loading" onclick="showLoading()">
+                        <i class="fas fa-spinner fa-spin"></i> Loading
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h4>Toasts con Título</h4>
+                <div class="button-grid">
+                    <button class="btn-primary" onclick="showWithTitle()">
+                        <i class="fas fa-heading"></i> Con Título
+                    </button>
+                    <button class="btn-secondary" onclick="showCustomTitle()">
+                        <i class="fas fa-edit"></i> Personalizado
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h4>Acciones Especiales</h4>
+                <div class="button-grid">
+                    <button class="btn-primary" onclick="showPersistent()">
+                        <i class="fas fa-hourglass-end"></i> Persistente
+                    </button>
+                    <button class="btn-warning" onclick="showClickable()">
+                        <i class="fas fa-mouse-pointer"></i> Clickable
+                    </button>
+                    <button class="btn-danger" onclick="clearAll()">
+                        <i class="fas fa-trash"></i> Limpiar Todo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="options-row">
+            <div>
+                <label for="position">Posición:</label>
+                <select id="position" onchange="updatePosition()">
+                    <option value="top-right">Top Right</option>
+                    <option value="top-left">Top Left</option>
+                    <option value="top-center">Top Center</option>
+                    <option value="bottom-right">Bottom Right</option>
+                    <option value="bottom-left">Bottom Left</option>
+                    <option value="bottom-center">Bottom Center</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="theme">Tema:</label>
+                <select id="theme" onchange="updateTheme()">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="colored">Colored</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="animation">Animación:</label>
+                <select id="animation" onchange="updateAnimation()">
+                    <option value="slide">Slide</option>
+                    <option value="fade">Fade</option>
+                    <option value="scale">Scale</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="duration">Duración (ms):</label>
+                <input type="number" id="duration" value="3000" min="0" step="1000" onchange="updateDuration()">
+            </div>
+        </div>
+
+        <div class="toast-status" id="toastStatus">
+            <i class="fas fa-info-circle"></i>
+            Haz clic en los botones para mostrar toasts. Última acción: <span id="lastAction">Esperando...</span>
+        </div>
+    </section>
+
+    <!-- Ejemplos de código -->
+    <section class="demo-section">
+        <h2 class="section-title"><i class="fas fa-code"></i> Ejemplos de Código</h2>
+
+        <div class="code-block">
+                <pre><code><span class="highlight">// Inicialización básica</span>
+<span class="highlight">const</span> toast = <span class="highlight">new</span> <span class="string">RojeruToast</span>();
+
+<span class="highlight">// Toast simple</span>
+toast.<span class="string">info</span>(<span class="string">'Mensaje informativo'</span>);
+toast.<span class="string">success</span>(<span class="string">'¡Operación exitosa!'</span>);
+toast.<span class="string">error</span>(<span class="string">'Algo salió mal'</span>);
+
+<span class="highlight">// Toast con opciones</span>
+toast.<span class="string">show</span>(<span class="string">'Título'</span>, <span class="string">'Mensaje detallado'</span>, {
+    type: <span class="string">'warning'</span>,
+    duration: <span class="number">5000</span>,
+    position: <span class="string">'top-center'</span>,
+    theme: <span class="string">'colored'</span>,
+    dismissible: <span class="highlight">true</span>
+});
+
+<span class="highlight">// Toast de carga con actualización</span>
+<span class="highlight">const</span> loadingToast = toast.<span class="string">loading</span>(<span class="string">'Procesando...'</span>);
+
+<span class="highlight">// Simular operación asíncrona</span>
+<span class="highlight">setTimeout</span>(() => {
+    loadingToast.<span class="string">complete</span>(<span class="string">'¡Completado!'</span>);
+}, <span class="number">2000</span>);</code></pre>
+        </div>
+
+        <div class="code-block">
+                <pre><code><span class="highlight">// Métodos avanzados</span>
+
+<span class="highlight">// Toast persistente</span>
+<span class="highlight">const</span> persistent = toast.<span class="string">info</span>(<span class="string">'Actualizando datos...'</span>, {
+    duration: <span class="number">0</span>,
+    dismissible: <span class="highlight">false</span>
+});
+
+<span class="highlight">// Actualizar después de una operación</span>
+<span class="highlight">setTimeout</span>(() => {
+    persistent.<span class="string">changeType</span>(<span class="string">'success'</span>, <span class="string">'¡Datos actualizados!'</span>, {
+        duration: <span class="number">3000</span>,
+        dismissible: <span class="highlight">true</span>
+    });
+}, <span class="number">3000</span>);
+
+<span class="highlight">// Manipular toasts existentes</span>
+toast.<span class="string">hideById</span>(<span class="string">'toast-id'</span>);
+toast.<span class="string">hideByType</span>(<span class="string">'info'</span>);
+toast.<span class="string">clear</span>(); <span class="highlight">// Limpiar todos</span></code></pre>
+        </div>
+    </section>
+
+    <!-- Uso con frameworks -->
+    <section class="demo-section">
+        <h2 class="section-title"><i class="fas fa-laptop-code"></i> Uso con Frameworks</h2>
+
+        <div class="controls-grid">
+            <div class="control-group">
+                <h4>React</h4>
+                <div class="code-block" style="margin-top: 10px;">
+                        <pre><code><span class="highlight">import</span> React <span class="highlight">from</span> <span class="string">'react'</span>;
+<span class="highlight">import</span> RojeruToast <span class="highlight">from</span> <span class="string">'rojeru-toast'</span>;
+
+<span class="highlight">function</span> <span class="string">Component</span>() {
+    <span class="highlight">const</span> toast = React.<span class="string">useMemo</span>(() =>
+        <span class="highlight">new</span> <span class="string">RojeruToast</span>(), []);
+
+    <span class="highlight">return</span> (
+        &lt;button onClick={() =>
+            toast.<span class="string">success</span>(<span class="string">'¡Desde React!'</span>)
+        }&gt;
+            Mostrar Toast
+        &lt;/button&gt;
+    );
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h4>Vue</h4>
+                <div class="code-block" style="margin-top: 10px;">
+                        <pre><code>&lt;template&gt;
+    &lt;button @click="showToast"&gt;
+        Mostrar Toast
+    &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+<span class="highlight">import</span> RojeruToast <span class="highlight">from</span> <span class="string">'rojeru-toast'</span>;
+
+<span class="highlight">export default</span> {
+    <span class="string">mounted</span>() {
+        <span class="highlight">this</span>.toast = <span class="highlight">new</span> <span class="string">RojeruToast</span>();
+    },
+    <span class="string">methods</span>: {
+        showToast() {
+            <span class="highlight">this</span>.toast.<span class="string">success</span>(<span class="string">'¡Desde Vue!'</span>);
+        }
+    }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p class="author">
+            <i class="fas fa-user"></i> Autor: Rogelio Urieta Camacho (RojeruSan)
+        </p>
+        <br>
+        <a href="https://github.com/tu-usuario/rojeru-toast" class="github-link" target="_blank">
+            <i class="fab fa-github"></i> Ver en GitHub
+        </a>
+    </footer>
+</div>
+
+<!-- Script de la librería -->
+<script src="../dist/rojeru-toast.js"></script>
+
+<!-- Script para la demo -->
+<script>
+    // Variables globales para la demo
+    let currentToast = null;
+    let loadingToastInstance = null;
+    let persistentToastInstance = null;
+
+    // Actualizar último evento
+    function updateLastAction(action) {
+        document.getElementById('lastAction').textContent = action;
+    }
+
+    // Mostrar toasts básicos
+    function showInfo() {
+        rojeruToast.info('Este es un mensaje informativo. Puedes cerrarlo haciendo clic en la X.');
+        updateLastAction('Toast informativo mostrado');
+    }
+
+    function showSuccess() {
+        rojeruToast.success('¡Operación completada con éxito! Todo salió según lo planeado.');
+        updateLastAction('Toast de éxito mostrado');
+    }
+
+    function showWarning() {
+        rojeruToast.warning('Advertencia: Esto es un mensaje de precaución. Verifica los datos.');
+        updateLastAction('Toast de advertencia mostrado');
+    }
+
+    function showError() {
+        rojeruToast.error('Error crítico: Algo salió mal. Por favor, contacta al soporte.');
+        updateLastAction('Toast de error mostrado');
+    }
+
+    function showLoading() {
+        loadingToastInstance = rojeruToast.loading('Procesando solicitud...');
+        updateLastAction('Toast de carga mostrado');
+
+        // Simular finalización después de 3 segundos
+        setTimeout(() => {
+            if (loadingToastInstance) {
+                loadingToastInstance.complete('¡Proceso completado exitosamente!');
+                updateLastAction('Toast de carga completado');
+            }
+        }, 3000);
+    }
+
+    // Mostrar toasts con título
+    function showWithTitle() {
+        rojeruToast.withTitle(
+            'Actualización del Sistema',
+            'Se están aplicando actualizaciones de seguridad. Esto tomará unos minutos.'
+        );
+        updateLastAction('Toast con título mostrado');
+    }
+
+    function showCustomTitle() {
+        const title = '🎉 ¡Nueva Función!';
+        const message = 'Hemos agregado soporte para temas personalizados y animaciones.';
+
+        rojeruToast.show(title, message, {
+            type: 'info',
+            theme: 'colored',
+            animation: 'scale'
+        });
+        updateLastAction('Toast personalizado mostrado');
+    }
+
+    // Acciones especiales
+    function showPersistent() {
+        persistentToastInstance = rojeruToast.info(
+            'Descargando archivo... 0%',
+            { duration: 0, dismissible: false }
+        );
+        updateLastAction('Toast persistente mostrado');
+
+        // Simular progreso
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 10;
+            if (progress <= 100) {
+                persistentToastInstance.update(
+                    'Descargando archivo...',
+                    `Progreso: ${progress}%`
+                );
+            }
+
+            if (progress === 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    persistentToastInstance.changeType(
+                        'success',
+                        '¡Descarga completada! El archivo está listo.',
+                        { duration: 3000, dismissible: true }
+                    );
+                    updateLastAction('Descarga completada');
+                }, 500);
+            }
+        }, 300);
+    }
+
+    function showClickable() {
+        rojeruToast.info(
+            '¡Haz clic en este toast para cerrarlo!',
+            {
+                closeOnClick: true,
+                dismissible: false,
+                duration: 0
+            }
+        );
+        updateLastAction('Toast clickable mostrado');
+    }
+
+    function clearAll() {
+        rojeruToast.clear();
+        updateLastAction('Todos los toasts limpiados');
+    }
+
+    // Actualizar configuración global
+    function updatePosition() {
+        const position = document.getElementById('position').value;
+        rojeruToast.defaultOptions.position = position;
+        updateLastAction(`Posición cambiada a: ${position}`);
+    }
+
+    function updateTheme() {
+        const theme = document.getElementById('theme').value;
+        rojeruToast.defaultOptions.theme = theme;
+        updateLastAction(`Tema cambiado a: ${theme}`);
+    }
+
+    function updateAnimation() {
+        const animation = document.getElementById('animation').value;
+        rojeruToast.defaultOptions.animation = animation;
+        updateLastAction(`Animación cambiada a: ${animation}`);
+    }
+
+    function updateDuration() {
+        const duration = parseInt(document.getElementById('duration').value);
+        rojeruToast.defaultOptions.duration = duration;
+        updateLastAction(`Duración cambiada a: ${duration}ms`);
+    }
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mostrar toast de bienvenida
+        setTimeout(() => {
+            rojeruToast.withTitle(
+                '🎯 rojeru-toast Demo',
+                '¡Bienvenido a la demostración de la librería! Prueba los diferentes tipos de toasts.',
+                { duration: 4000, theme: 'colored' }
+            );
+        }, 500);
+
+        updateLastAction('Demo cargada correctamente');
+    });
+
+    // Exponer funciones globalmente para que puedan ser llamadas desde la consola
+    window.demo = {
+        showInfo,
+        showSuccess,
+        showWarning,
+        showError,
+        showLoading,
+        showWithTitle,
+        showCustomTitle,
+        showPersistent,
+        showClickable,
+        clearAll,
+        updatePosition,
+        updateTheme,
+        updateAnimation,
+        updateDuration
+    };
+</script>
+</body>
+</html>
