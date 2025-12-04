@@ -1,6 +1,6 @@
 {
   "name": "rojeru-toast",
-  "version": "2.6.2",
+  "version": "1.0.0",
   "description": "Librería moderna de mensajes toast para aplicaciones web, compatible con todos los frameworks y HTML puro",
   "main": "dist/rojeru-toast.js",
   "module": "src/index.js",
