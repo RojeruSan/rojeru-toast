@@ -5,7 +5,7 @@
 [![Bundle Size](https://img.shields.io/bundlephobia/min/rojeru-toast)](https://bundlephobia.com/package/rojeru-toast)
 
 Una librería moderna de mensajes toast para aplicaciones web, compatible con todos los frameworks y HTML puro.
-[![Donar](https://img.shields.io/badge/Donar-PayPal-00457C?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=JLWEAETTE3H28&ssrt=1764941769118)
+
 ## Características
 
 - 🎨 **Diseño moderno** con 3 temas (light, dark, colored)
@@ -314,3 +314,5 @@ function Component() {
 ## Licencia
 
 MIT © Rogelio Urieta Camacho (RojeruSan)
+## ❤️ Donaciones
+[![Donar](https://img.shields.io/badge/Donar-PayPal-00457C?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=JLWEAETTE3H28&ssrt=1764941769118)
